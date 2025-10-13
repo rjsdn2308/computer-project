@@ -127,6 +127,10 @@ HaGRID (HAnd Gesture Recognition Image Dataset)은 손 제스처 인식 연구�
   - 다양한 조명 조건
   - 다양한 배경
   - 여러 참가자 손 사진 포함
+ 
+## 4. 데이터셋을 참고 후 만든 프로그램
+
+- file:///C:/Users/gunwo/OneDrive/%EB%AC%B8%EC%84%9C/%EC%B9%B4%EC%B9%B4%EC%98%A4%ED%86%A1%20%EB%B0%9B%EC%9D%80%20%ED%8C%8C%EC%9D%BC/gesture_demo.html 
 
 ### 2.5. 참고하고 싶은 이유
 
