@@ -138,6 +138,11 @@ HaGRID (HAnd Gesture Recognition Image Dataset)은 손 제스처 인식 연구�
 
 - IoT와 결합된 **스마트 홈/스마트 클래스룸 시스템**으로 확장 가능성이 큼
 
+### 2.6. 업무 분담
+- 강민수 :
+- 이준성 :
+- 김건우 : 
+
 
 
 
