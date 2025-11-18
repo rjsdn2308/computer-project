@@ -92,7 +92,7 @@
 ### 📌 (1) 과일 유아교육 LLM
 
 파일: `fruit_tutor.py`, `fruit_qa.py`
-출처: fileciteturn0file0
+출처: 
 
 * 과일 이름 + 연령대 입력 → 유아용 설명 생성
 * 성장 과정, 영양소, 재배 환경 포함
@@ -102,7 +102,7 @@
 ### 📌 (2) 제스처 기반 스마트 제어 LLM
 
 파일: `gesture_control_demo.py`
-출처: fileciteturn0file1
+출처: 
 
 * 제스처(open_palm, fist 등) + 사용자 명령어 입력
 * LLM이 1~2문장으로 자연스러운 안내 메시지 생성
@@ -112,7 +112,7 @@
 ### 📌 (3) 공통 실행 환경
 
 파일: `.env`, `실행방법.txt`
-출처: fileciteturn0file2 fileciteturn0file5
+출처: 
 
 * OPENAI_API_KEY, HUGGINGFACE_TOKEN 관리
 * 모든 LLM 프로젝트 공통 구조로 활용
@@ -193,6 +193,7 @@ gantt
 2. HaGRID Gesture Dataset Documentation.
 3. LLM 기반 교육용 콘텐츠 사례 분석, 2023.
 4. 업로드 파일: fruit_tutor.py, gesture_control_demo.py, .env, 실행방법.txt.
+
 
 
 
