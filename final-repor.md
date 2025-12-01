@@ -1,6 +1,3 @@
-# project_md_generator.py
-
-md_content = """
 ## 1. 프로젝트 개요 *필수작성*
 
 * **수행 학기:** 2학기
@@ -204,5 +201,6 @@ OpenAI, GPT 모델 기술 문서, 2024.
 HaGRID Gesture Dataset Documentation.
 
 LLM 기반 교육용 콘텐츠 사례 분석, 2023.
+
 
 업로드 파일: fruit_tutor.py, gesture_control_demo.py, .env, 실행방법.txt.
