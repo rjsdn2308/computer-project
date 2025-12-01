@@ -107,3 +107,57 @@
 import tensorflow as tf
 from tensorflow.keras import layers, models, callbacks
 import os
+
+2. 데이터셋 로딩 및 전처리
+train_ds = tf.keras.preprocessing.image_dataset_from_directory(DATA_DIR,
+    validation_split=0.2, subset="training", seed=42,
+    image_size=IMG_SIZE, batch_size=BATCH_SIZE)
+
+val_ds = tf.keras.preprocessing.image_dataset_from_directory(DATA_DIR,
+    validation_split=0.2, subset="validation", seed=42,
+    image_size=IMG_SIZE, batch_size=BATCH_SIZE)
+
+train_ds = train_ds.prefetch(tf.data.AUTOTUNE)
+val_ds = val_ds.prefetch(tf.data.AUTOTUNE)
+
+3. 데이터 증강
+data_augmentation = tf.keras.Sequential([
+    layers.RandomFlip("horizontal"),
+    layers.RandomRotation(0.1),
+    layers.RandomZoom(0.2),
+    layers.RandomContrast(0.1),
+])
+
+4. EfficientNetV2S 기반 전이학습 모델
+base = tf.keras.applications.EfficientNetV2S(include_top=False, input_shape=IMG_SIZE+(3,), weights="imagenet")
+base.trainable = False
+
+inputs = tf.keras.Input(shape=IMG_SIZE+(3,))
+x = data_augmentation(inputs)
+x = tf.keras.applications.efficientnet_v2.preprocess_input(x)
+x = base(x, training=False)
+x = layers.GlobalAveragePooling2D()(x)
+x = layers.Dropout(0.3)(x)
+outputs = layers.Dense(len(train_ds.class_names), activation="softmax")(x)
+model = models.Model(inputs, outputs)
+
+5. 모델 학습
+model.compile(optimizer="adam", loss="sparse_categorical_crossentropy", metrics=["accuracy"])
+
+early = callbacks.EarlyStopping(monitor="val_loss", patience=5, restore_best_weights=True)
+ckpt = callbacks.ModelCheckpoint("../trained_model/fruit_model_best.h5", save_best_only=True)
+
+history = model.fit(train_ds, validation_data=val_ds, epochs=10, callbacks=[early, ckpt])
+
+6. TFLite 변환
+converter = tf.lite.TFLiteConverter.from_keras_model(model)
+converter.optimizations = [tf.lite.Optimize.DEFAULT]
+tflite_model = converter.convert()
+open("../trained_model/fruit_model_quant.tflite", "wb").write(tflite_model)
+기대 효과:
+
+유아용 과일 학습 가능
+
+실시간 추론 및 모바일 배포 가능
+
+시각적 학습 + 자연어 설명 연계 가능
