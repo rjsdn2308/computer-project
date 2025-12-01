@@ -99,47 +99,114 @@
 #### TensorFlow 이미지 분류 모델 분석
 
 1. **기본 설정 & 디렉토리 생성**
+IMG_SIZE = (224, 224)
+BATCH_SIZE = 32
+DATA_DIR = "dataset/"
+MODEL_DIR = "../trained_model"
+os.makedirs(MODEL_DIR, exist_ok=True)
 
 * 입력 이미지 크기: 224×224, 배치 크기: 32
 * 데이터셋 경로: `dataset/`, 학습 모델 저장 디렉토리 생성
 
 2. **데이터셋 불러오기**
+train_ds = tf.keras.preprocessing.image_dataset_from_directory(
+    DATA_DIR,
+    validation_split=0.2,
+    subset="training",
+    seed=42,
+    image_size=IMG_SIZE,
+    batch_size=BATCH_SIZE,
+)
+val_ds = tf.keras.preprocessing.image_dataset_from_directory(
+    DATA_DIR,
+    validation_split=0.2,
+    subset="validation",
+    seed=42,
+    image_size=IMG_SIZE,
+    batch_size=BATCH_SIZE,
+)
 
 * `train_ds`, `val_ds`로 불러오고 20% 검증용 사용
 * 폴더 구조: 클래스별 폴더 (apple, banana, orange 등)
 
 3. **prefetch() 적용**
 
+train_ds = train_ds.prefetch(AUTOTUNE)
+val_ds = val_ds.prefetch(AUTOTUNE)
+
 * CPU에서 미리 다음 배치 준비 → GPU와 병렬 처리
 * 학습 속도 증가
 
 4. **데이터 증강**
+
+data_augmentation = tf.keras.Sequential([
+    layers.RandomFlip("horizontal"),
+    layers.RandomRotation(0.1),
+    layers.RandomZoom(0.2),
+    layers.RandomContrast(0.1),
+])
+
 
 * 좌우 반전, 회전 ±10%, 확대/축소 ±20%, 대비 변화
 * 모델 일반화 성능 향상
 
 5. **EfficientNetV2S 전이학습**
 
+base = tf.keras.applications.EfficientNetV2S(
+    include_top=False, input_shape=IMG_SIZE+(3,), weights="imagenet"
+)
+base.trainable = False
+
+
 * ImageNet pretrained 백본, include_top=False
 * feature extractor 동결, GAP, Dropout, Dense Softmax 출력
 
-6. **모델 컴파일**
+6. 최종 모델 구성
+
+inputs = tf.keras.Input(shape=IMG_SIZE+(3,))
+x = data_augmentation(inputs)
+x = tf.keras.applications.efficientnet_v2.preprocess_input(x)
+x = base(x, training=False)
+x = layers.GlobalAveragePooling2D()(x)
+x = layers.Dropout(0.3)(x)
+outputs = layers.Dense(len(train_ds.class_names), activation="softmax")(x)
+model = models.Model(inputs, outputs)
+
+* 입력 → 증강 → EfficientNet 전처리 → feature extraction
+* GAP → Dropout → Dense Softmax
+
+7. **모델 컴파일**
+
+inputs = tf.keras.Input(shape=IMG_SIZE+(3,))
+x = data_augmentation(inputs)
+x = tf.keras.applications.efficientnet_v2.preprocess_input(x)
+x = base(x, training=False)
+x = layers.GlobalAveragePooling2D()(x)
+x = layers.Dropout(0.3)(x)
+outputs = layers.Dense(len(train_ds.class_names), activation="softmax")(x)
+model = models.Model(inputs, outputs)
+
 
 * Optimizer: Adam
 * Loss: sparse_categorical_crossentropy
 * Metrics: accuracy
 
-7. **콜백 설정**
+8. **콜백 설정**
+
+early = callbacks.EarlyStopping(monitor="val_loss", patience=5, restore_best_weights=True)
+ckpt = callbacks.ModelCheckpoint("../trained_model/fruit_model_best.h5", save_best_only=True)
 
 * EarlyStopping: val_loss 5 epoch 개선 없으면 중단, 최고 가중치 복원
 * ModelCheckpoint: val_loss 기준 최고 모델만 저장
 
-8. **모델 학습**
+9. **모델 학습**
 
 * 최대 10 epoch, EarlyStopping 적용
 * 학습 과정 history에 저장
 
 9. **TensorFlow Lite 변환**
+
+history = model.fit(train_ds, validation_data=val_ds, epochs=10, callbacks=[early, ckpt])
 
 * TFLiteConverter로 모바일/임베디드 사용 가능
 * Optimize.DEFAULT 적용 → 양자화, 모델 크기 감소 & 속도 증가
@@ -235,4 +302,5 @@ Vision 연동 테스트 :2025-11-25, 5d
 2. HaGRID Gesture Dataset Documentation.
 3. LLM 기반 교육용 콘텐츠 사례 분석, 2023.
 4. 업로드 파일: fruit_tutor.py, gesture_control_demo.py, .env, 실행방법.txt.
+
 
