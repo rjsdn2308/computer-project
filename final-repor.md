@@ -189,18 +189,5 @@ gantt
     Vision 연동 테스트 :2025-11-25, 5d
     최종 통합 테스트 :after a1, 5d
 
-## 2.6 역할 분담
-구분	성명	팀내 역할
-1	김건우	LLM 시스템 개발, 프롬프트 엔지니어링
-2	강민수	데이터 구조 설계, 기능 테스트
-3	이준성	API 환경 설정, 모델 성능 점검
-2.7 참고문헌
-
-OpenAI, GPT 모델 기술 문서, 2024.
-
-HaGRID Gesture Dataset Documentation.
-
-LLM 기반 교육용 콘텐츠 사례 분석, 2023.
 
 
-업로드 파일: fruit_tutor.py, gesture_control_demo.py, .env, 실행방법.txt.
