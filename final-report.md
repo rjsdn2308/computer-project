@@ -160,7 +160,8 @@ UI에 결과 출력
 
 ### 손 제스처 인식 및 제어 구조 블록다이어그램
 
-![Hand Gesture Model](C:\Users\gunwo\anaconda3\envs\TEST\프로젝트\건우 프로젝트\최종\hand_gesture_model_diagram.png)
+![손 제스처 인식 및 제어 구조 블록다이어그램](C:\Users\gunwo\anaconda3\envs\TEST\프로젝트\건우 프로젝트\최종\images\hand_gesture_model_diagram.png)
+
 
 #### 주요 코드 및 분석
 
