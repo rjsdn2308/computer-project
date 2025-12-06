@@ -107,7 +107,7 @@ GPT API를 이용한 교육용 Q&A 서비스는 증가하는 추세
 
 ### 과일 분류 모델 구조 블록다이어그램
 
-![alt text](image-1.png)
+![과일 분류 모델 구조 블록다이어그램](./images/fruit_training_model_diagram.png)
 
 
 #### 2.3.4 시퀀스 다이어그램
@@ -260,7 +260,10 @@ if(cnt>=CONFIRM){
 
 ---
 
-![alt text](image-2.png)
+### 손 제스처 인식 및 제어 구조 블록다이어그램
+
+![손 제스처 인식 및 제어 구조 블록다이어그램](./images/hand_gesture_model_diagram.png)
+
 
 ### 2.4 기대효과
 
