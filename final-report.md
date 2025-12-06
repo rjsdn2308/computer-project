@@ -107,7 +107,7 @@ GPT API를 이용한 교육용 Q&A 서비스는 증가하는 추세
 
 ### 과일 분류 모델 구조 블록다이어그램
 
-![Fruit Training Model](./fruit_training_model_diagram.png)
+![Fruit Training Model](C:\Users\gunwo\anaconda3\envs\TEST\프로젝트\건우 프로젝트\최종\fruit_training_model_diagram.png)
 
 
 #### 2.3.4 시퀀스 다이어그램
@@ -160,7 +160,7 @@ UI에 결과 출력
 
 ### 손 제스처 인식 및 제어 구조 블록다이어그램
 
-![Hand Gesture Model](./hand_gesture_model_diagram.png)
+![Hand Gesture Model](C:\Users\gunwo\anaconda3\envs\TEST\프로젝트\건우 프로젝트\최종\hand_gesture_model_diagram.png)
 
 #### 주요 코드 및 분석
 
