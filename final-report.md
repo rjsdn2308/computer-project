@@ -104,14 +104,14 @@ GPT API를 이용한 교육용 Q&A 서비스는 증가하는 추세
 | 데이터 구조        | fruit_meta.json 기반 정보 관리 |
 
 #### 2.3.3 시스템 구조 블록 다이어그램
-flowchart TD
+
+flowchart LR
     A[사용자] --> B[과일 사진 업로드]
-    B --> C[CV 모델 (과일 인식/분류)]
+    B --> C[CV 모델 / 과일 인식]
     C --> D[과일 종류 및 정보 추출]
     D --> E[LLM 설명 생성]
-    E --> F[유아용 말투로 변환]
-    F --> G[사용자 학습 화면 표시]
-
+    E --> F[유아용 말투 변환]
+    F --> G[사용자 학습 화면]
 
 
 #### 2.3.4 시퀀스 다이어그램
@@ -295,4 +295,3 @@ if(cnt>=CONFIRM){
 4. OpenAI API Documentation, 2025
 5. Gradio Documentation, 2025
 6. MediaPipe HandLandmarker Documentation, 2025
-
