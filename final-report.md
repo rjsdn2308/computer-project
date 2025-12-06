@@ -107,7 +107,7 @@ GPT API를 이용한 교육용 Q&A 서비스는 증가하는 추세
 
 ### 과일 분류 모델 구조 블록다이어그램
 
-![Fruit Training Model](C:\Users\gunwo\anaconda3\envs\TEST\프로젝트\건우 프로젝트\최종\fruit_training_model_diagram.png)
+![alt text](image-1.png)
 
 
 #### 2.3.4 시퀀스 다이어그램
@@ -259,7 +259,7 @@ if(cnt>=CONFIRM){
 
 ---
 
-![alt text](image.png)
+![alt text](image-2.png)
 
 ### 2.4 기대효과
 
