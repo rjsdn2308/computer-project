@@ -1,2 +1,0 @@
-# computer-project
-computer project
